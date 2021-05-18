@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState} from 'react';
+
+import {Container, Row, Col} from 'react-bootstrap';
+import FormTodo from './components/Form/FormTodo';
 
 function App() {
+
+  //States
+  const [dataTask, setDataTask] = useState([])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <h2 className='text-center m-3 p-2 bg-warning'>Todo list</h2>
+      <Row>
+        <Col sm={8}>
+          <FormTodo
+            setDataTask={setDataTask}
+            dataTask={dataTask}
+          />
+        </Col>
+        <Col sm={4}>
+          2
+        </Col>
+      </Row>
+      <Row>
+        <Col sm={4}>
+          <h3>Contador</h3>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
