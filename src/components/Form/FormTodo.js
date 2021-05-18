@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import Error from '../Error/Error';
 
 import shortid from 'shortid';
 
@@ -11,12 +12,11 @@ const ContainerForm = styled.div `
   border-radius: 25px;
 `;
 
-const FormTodo = ({dataTask, setDataTask}) => {
+const FormTodo = ({dataTask, setDataTask, setContador, contador}) => {
 
   //States
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [values, setValues] = useState({});
   const [error, setError] = useState(false)
 
   //Function que envia la informacion validada
@@ -30,21 +30,24 @@ const FormTodo = ({dataTask, setDataTask}) => {
 
     setError(false);
 
-    setValues({
-      id: shortid.generate(),
-      title: title,
-      description: description
-    })
-
     setDataTask([
       ...dataTask,
-      values
+      {id: shortid.generate(),
+      title,
+      description}
+    
     ])
-  }
 
+    setContador(contador + 1)
+    setTitle('');
+    setDescription('');
+  }
 
   return ( 
     <ContainerForm>
+
+      {error ? <Error title='Ops! parece que hubo un error' message='Uno o mas campos estan vacios' /> : null }
+
       <Form className='m-3 p-2' onSubmit={sendData}>
         <Form.Label>Ingrese el titulo de la tarea</Form.Label>
         <Form.Control 
